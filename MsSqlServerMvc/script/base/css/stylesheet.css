@@ -1,0 +1,220 @@
+﻿﻿body {
+    font-family: 'Roboto', sans-serif !important;
+}
+
+.row {
+    margin: 0 !important;
+}
+
+hr {
+    background-color: #00AFFA !important;
+    height: 2px;
+    border: none;
+}
+
+.text-bold {
+    font-weight: bold !important;
+}
+
+.azul-entecpro {
+    background-color: #00AFFA !important;
+}
+
+.waves-effect.waves-entecpro .waves-ripple {
+    background-color: #00AFFA !important;
+}
+
+.OcultarElemento {
+    display: none !important;
+}
+
+.azul-entecpro {
+    background-color: #00AFFA !important;
+}
+
+.waves-effect.waves-entecpro .waves-ripple {
+    background-color: #00AFFA !important;
+}
+
+.padding3 {
+    padding: 3px !important;
+}
+
+.padding5 {
+    padding: 5px !important;
+}
+
+.padding10 {
+    padding: 10px !important;
+}
+
+.padding15 {
+    padding: 15px !important;
+}
+
+.padding20 {
+    padding: 20px !important;
+}
+
+.padding25 {
+    padding: 25px !important;
+}
+
+.padding30 {
+    padding: 30px !important;
+}
+
+.padding35 {
+    padding: 35px !important;
+}
+
+.padding40 {
+    padding: 40px !important;
+}
+
+.padding45 {
+    padding: 45px !important;
+}
+
+.padding50 {
+    padding: 50px !important;
+}
+
+.paddingTop10 {
+    padding-top: 10px !important;
+}
+
+/* matealizecss */
+
+/* Texto textbox */
+input:not([type]):focus:not([readonly]) + label,
+input[type=text]:not(.browser-default):focus:not([readonly]) + label,
+input[type=password]:not(.browser-default):focus:not([readonly]) + label,
+input[type=email]:not(.browser-default):focus:not([readonly]) + label,
+input[type=url]:not(.browser-default):focus:not([readonly]) + label,
+input[type=time]:not(.browser-default):focus:not([readonly]) + label,
+input[type=date]:not(.browser-default):focus:not([readonly]) + label,
+input[type=datetime]:not(.browser-default):focus:not([readonly]) + label,
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]) + label,
+input[type=tel]:not(.browser-default):focus:not([readonly]) + label,
+input[type=number]:not(.browser-default):focus:not([readonly]) + label,
+input[type=search]:not(.browser-default):focus:not([readonly]) + label,
+textarea.materialize-textarea:focus:not([readonly]) + label {
+    color: #00AFFA;
+}
+
+/* Borde textbox */
+input:not([type]):focus:not([readonly]),
+input[type=text]:not(.browser-default):focus:not([readonly]),
+input[type=password]:not(.browser-default):focus:not([readonly]),
+input[type=email]:not(.browser-default):focus:not([readonly]),
+input[type=url]:not(.browser-default):focus:not([readonly]),
+input[type=time]:not(.browser-default):focus:not([readonly]),
+input[type=date]:not(.browser-default):focus:not([readonly]),
+input[type=datetime]:not(.browser-default):focus:not([readonly]),
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+input[type=tel]:not(.browser-default):focus:not([readonly]),
+input[type=number]:not(.browser-default):focus:not([readonly]),
+input[type=search]:not(.browser-default):focus:not([readonly]),
+textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #00AFFA;
+    -webkit-box-shadow: 0 1px 0 0 #00AFFA;
+    box-shadow: 0 1px 0 0 #00AFFA;
+}
+
+/* tabs */
+.tabs {
+    background-color: transparent !important;
+}
+
+    /* tabs - sin seleccionar */
+    .tabs .tab a {
+        color: #666;
+        background-color: transparent !important;
+    }
+
+        /* tabs - fondo traslucido */
+        .tabs .tab a:focus, .tabs .tab a:focus.active {
+            background-color: transparent !important;
+        }
+
+        /* tabs - con seleccionar */
+        .tabs .tab a:hover, .tabs .tab a.active {
+            color: #00AFFA !important;
+        }
+
+    /* tabs - disable */
+    .tabs .tab.disabled a,
+    .tabs .tab.disabled a:hover {
+        color: #00AFFA !important;
+    }
+
+    /* tabs - indicador */
+    .tabs .indicator {
+        background-color: #00AFFA !important;
+    }
+
+/* dropdown - linea inferior */
+.select-wrapper input.select-dropdown:focus {
+    border-bottom: 1px solid #00AFFA !important;
+}
+
+/* dropdown - letras azules */
+.dropdown-content li > a, .dropdown-content li > span {
+    color: #00AFFA !important;
+}
+
+/* checkbox - 01 */
+[type="checkbox"]:checked + span:not(.lever):before {
+    border-right: 2px solid #00AFFA;
+    border-bottom: 2px solid #00AFFA;
+}
+
+/* checkbox - 02 */
+[type="checkbox"].filled-in:checked + span:not(.lever):after {
+    border: 2px solid #00AFFA !important;
+    background-color: #00AFFA !important;
+}
+
+/* blockquote */
+blockquote {
+    border-left: 5px solid #FFA233;
+}
+
+td, th {
+    padding: 1px !important;
+    display: table-cell;
+    text-align: left;
+    vertical-align: middle;
+    border-radius: 1px !important;
+}
+
+/* Eliminar bordes verdes de txt de busqueda en el grid de devexpress */
+.dxgvControl_MaterialCompact .dxh0 {
+    border: 0 !important;
+}
+
+/* Eliminamos espacio entre el txt y el grv de devexpress */
+.dxgvSearchPanel_MaterialCompact {
+    padding-bottom: 0 !important;
+    margin: 0 !important;
+}
+
+/* Cambia color del nro de la página actual  en el grid demdevexpress */
+.dxpLite_MaterialCompact .dxp-current {
+    background-color: #00AFFA !important;
+}
+
+/* Cambiar tamaño de btn */
+.btn {
+    height: 29.16px;
+    line-height: 29.16px;
+    font-size: 12.60px;
+}
+
+/* Cambiar tamaño de btn-small */
+.btn-small {
+    height: 29.16px;
+    line-height: 29.16px;
+    font-size: 12.60px;
+}
