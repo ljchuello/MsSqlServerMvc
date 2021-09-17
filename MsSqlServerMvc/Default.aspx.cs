@@ -14,6 +14,13 @@ namespace MsSqlServerMvc
             {
                 if (!IsPostBack)
                 {
+                    // Leemos
+                    _sql = _sql.Leer();
+                    txtServidor.Text = _sql.Servidor;
+                    txtContrasenia.Text = _sql.Contrasenia;
+                    txtUsuario.Text = _sql.Usuario;
+                    txtBaseDatos.Text = _sql.BaseDatos;
+
                     // Evitamos el doble click
                     UControl.EvitarDobleEnvioButton(this, btnConectar);
                 }
@@ -71,6 +78,14 @@ namespace MsSqlServerMvc
 
                 // Conexión exitosa
                 _sql.Guardar(_sql);
+
+                // Listamos
+                ddlTabla.DataSource = _sql.Tables_List(this, _sql);
+                ddlTabla.DataBind();
+
+                // Libre de pecados
+                Notificacion.Toas(this, $"Conexión establecido con éxito");
+                return;
             }
             catch (Exception ex)
             {
