@@ -218,3 +218,7 @@ td, th {
     line-height: 29.16px;
     font-size: 12.60px;
 }
+
+.tabs .tab a {
+    color: #00AFFA !important;
+}
