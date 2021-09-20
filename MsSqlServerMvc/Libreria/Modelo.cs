@@ -47,7 +47,7 @@ namespace MsSqlServerMvc.Libreria
                         break;
 
                     default:
-                        stringBuilder.AppendLine($"        public NOPE {campo.Nombre} {{ set; get; }} = NOPE");
+                        stringBuilder.AppendLine($"        public string {campo.Nombre} {{ set; get; }} = string.Empty;");
                         break;
                 }
             }

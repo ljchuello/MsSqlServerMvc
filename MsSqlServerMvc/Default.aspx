@@ -92,7 +92,7 @@
                             </div>
 
                             <div class="col s12">
-                                <button id="btnGenerar" runat="server" class="btn green col s12">
+                                <button id="btnGenerar" runat="server" class="btn green col s12" onserverclick="btnGenerar_OnServerClick">
                                     Generar
                                 </button>
                             </div>
@@ -102,7 +102,18 @@
                 </asp:UpdatePanel>
             </div>
 
-            <div id="tabModelo" class="col s12 padding5">Modelo</div>
+            <div id="tabModelo" class="col s12 padding5">
+                <asp:UpdatePanel runat="server">
+                    <ContentTemplate>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="txtModelo" runat="server" class="materialize-textarea"></textarea>
+                                <label for="<%=txtModelo.ClientID%>">Modelo</label>
+                            </div>
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
 
             <div id="tabControlador" class="col s12 padding5">Controlador</div>
 

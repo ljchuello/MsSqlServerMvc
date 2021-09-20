@@ -23,6 +23,7 @@ namespace MsSqlServerMvc
 
                     // Evitamos el doble click
                     UControl.EvitarDobleEnvioButton(this, btnConectar);
+                    UControl.EvitarDobleEnvioButton(this, btnGenerar);
                 }
             }
             catch (Exception ex)
@@ -86,6 +87,35 @@ namespace MsSqlServerMvc
                 // Libre de pecados
                 Notificacion.Toas(this, $"Conexión establecido con éxito");
                 return;
+            }
+            catch (Exception ex)
+            {
+                Notificacion.Toas(this, $"Ah ocurrido un error; {ex.Message}");
+                return;
+            }
+        }
+
+        protected void btnGenerar_OnServerClick(object sender, EventArgs e)
+        {
+            try
+            {
+                // Obtenemos el nombre
+                if (Cadena.Vacia(ddlTabla.SelectedValue))
+                {
+                    Notificacion.Toas(this, $"Primeramente debe seleccionar una tabla");
+                    return;
+                }
+
+                _sql = _sql.Leer();
+
+                // Generamos
+                var campos = _sql.Table_Details(this, _sql, ddlTabla.SelectedValue);
+
+                // Modelo
+                string modelo = new Modelo().Generar(ddlTabla.SelectedValue, campos);
+                txtModelo.InnerText = modelo;
+                Javascript.ResizeTxt(this, txtModelo.ClientID);
+
             }
             catch (Exception ex)
             {
