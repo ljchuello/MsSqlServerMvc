@@ -87,6 +87,7 @@
     <Compile Include="Libreria\Cadena.cs" />
     <Compile Include="Libreria\ControladorV2.cs" />
     <Compile Include="Libreria\Controlador.cs" />
+    <Compile Include="Libreria\Granular.cs" />
     <Compile Include="Libreria\Javascript.cs" />
     <Compile Include="Libreria\Modelo.cs" />
     <Compile Include="Libreria\Notificacion.cs" />

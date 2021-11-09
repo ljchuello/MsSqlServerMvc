@@ -164,6 +164,7 @@ namespace MsSqlServerMvc.Libreria
                             switch (campos.TipoSql)
                             {
                                 case "nvarchar":
+                                case "varchar":
                                     campos.TipoDotNet = "string";
                                     break;
 

@@ -122,6 +122,11 @@ namespace MsSqlServerMvc
                 txtControlador.InnerText = controlador;
                 Javascript.ResizeTxt(this, txtControlador.ClientID);
 
+                // Granular
+                string granular = new Granular().Generar(this, campos, ddlTabla.SelectedValue);
+                txtGranular.InnerText = granular;
+                Javascript.ResizeTxt(this, txtGranular.ClientID);
+
             }
             catch (Exception ex)
             {
