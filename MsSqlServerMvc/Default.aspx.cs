@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web.UI;
 using MsSqlServerMvc.Libreria;
 
@@ -109,12 +110,17 @@ namespace MsSqlServerMvc
                 _sql = _sql.Leer();
 
                 // Generamos
-                var campos = _sql.Table_Details(this, _sql, ddlTabla.SelectedValue);
+                List<Sql.Campos> campos = _sql.Table_Details(this, _sql, ddlTabla.SelectedValue);
 
                 // Modelo
                 string modelo = new Modelo().Generar(ddlTabla.SelectedValue, campos);
                 txtModelo.InnerText = modelo;
                 Javascript.ResizeTxt(this, txtModelo.ClientID);
+
+                // Controlador
+                string controlador = new ControladorV2().Generar(this, campos, ddlTabla.SelectedValue);
+                txtControlador.InnerText = controlador;
+                Javascript.ResizeTxt(this, txtControlador.ClientID);
 
             }
             catch (Exception ex)

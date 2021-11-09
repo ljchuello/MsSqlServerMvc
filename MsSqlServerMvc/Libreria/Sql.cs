@@ -135,21 +135,22 @@ namespace MsSqlServerMvc.Libreria
                     sqlCommand.Connection = mySqlConnection;
                     sqlCommand.CommandType = CommandType.Text;
                     sqlCommand.CommandText = $"SELECT" +
-                                               "\nc.name AS 'Campo'," +
-                                               "\nt.name AS 'Tipo'," +
-                                               "\n--c.max_length AS 'Largo'," +
-                                               "\n--c.precision AS 'Precision'," +
-                                               "\nISNULL(is_primary_key, 0) AS 'PK'" +
-                                               "\nFROM sys.columns c" +
-                                               "\nINNER JOIN  sys.types t ON" +
-                                               "\nc.user_type_id = t.user_type_id" +
-                                               "\nLEFT OUTER JOIN sys.index_columns ic ON" +
-                                               "\nic.object_id = c.object_id AND" +
-                                               "\nic.column_id = c.column_id" +
-                                               "\nLEFT OUTER JOIN sys.indexes i ON" +
-                                               "\nic.object_id = i.object_id AND" +
-                                               "\nic.index_id = i.index_id" +
-                                               $"\nWHERE c.object_id = OBJECT_ID('{tabla}'); ";
+                                             "\nc.name AS 'Campo'," +
+                                             "\nt.name AS 'Tipo'," +
+                                             "\n--c.max_length AS 'Largo'," +
+                                             "\n--c.precision AS 'Precision'," +
+                                             "\nISNULL(is_primary_key, 0) AS 'PK'," +
+                                             "\nc.is_nullable AS 'Nulo'" +
+                                             "\nFROM sys.columns c" +
+                                             "\nINNER JOIN  sys.types t ON" +
+                                             "\nc.user_type_id = t.user_type_id" +
+                                             "\nLEFT OUTER JOIN sys.index_columns ic ON" +
+                                             "\nic.object_id = c.object_id AND" +
+                                             "\nic.column_id = c.column_id" +
+                                             "\nLEFT OUTER JOIN sys.indexes i ON" +
+                                             "\nic.object_id = i.object_id AND" +
+                                             "\nic.index_id = i.index_id" +
+                                             $"\nWHERE c.object_id = OBJECT_ID('{tabla}');";
                     using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
                     {
                         while (sqlDataReader.Read())
@@ -158,6 +159,7 @@ namespace MsSqlServerMvc.Libreria
                             campos.Nombre = $"{sqlDataReader["Campo"]}";
                             campos.TipoSql = $"{sqlDataReader["Tipo"]}";
                             campos.Pk = Convert.ToBoolean(sqlDataReader["PK"]);
+                            campos.Nulo = Convert.ToBoolean(sqlDataReader["Nulo"]);
 
                             switch (campos.TipoSql)
                             {
@@ -205,6 +207,7 @@ namespace MsSqlServerMvc.Libreria
             public string TipoSql { set; get; } = string.Empty;
             public string TipoDotNet { set; get; } = string.Empty;
             public bool Pk { set; get; } = false;
+            public bool Nulo { set; get; } = false;
         }
     }
 }
