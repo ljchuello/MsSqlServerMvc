@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Web.UI;
 
@@ -17,12 +18,21 @@ namespace MsSqlServerMvc.Libreria
             stringBuilder.AppendLine($"// {DateTime.Now:yyyy-MM-dd}");
             stringBuilder.AppendLine($"");
             stringBuilder.AppendLine($"using System;");
+            stringBuilder.AppendLine($"using System.Data.SqlClient;");
             stringBuilder.AppendLine($"");
+            stringBuilder.AppendLine($"// ReSharper disable once CheckNamespace");
             stringBuilder.AppendLine($"namespace DataCloud");
             stringBuilder.AppendLine($"{{");
             stringBuilder.AppendLine($"    // ReSharper disable once InconsistentNaming");
             stringBuilder.AppendLine($"    public class {tabla}");
             stringBuilder.AppendLine($"    {{");
+
+            #region Métodos
+
+            stringBuilder.AppendLine($"        private const string _select = \"SELECT {string.Join(", ", campos.Select(x => x.Nombre))} FROM {tabla}\";");
+            stringBuilder.AppendLine("");
+
+            #endregion
 
             #region Campos
 
@@ -61,8 +71,65 @@ namespace MsSqlServerMvc.Libreria
 
             stringBuilder.AppendLine($"");
             stringBuilder.AppendLine($"       #endregion");
-            stringBuilder.AppendLine($"    }}");
             #endregion
+
+            #region Métodos
+
+            stringBuilder.AppendLine("");
+            stringBuilder.AppendLine("       #region Methods");
+            stringBuilder.AppendLine("");
+            stringBuilder.AppendLine("");
+            stringBuilder.AppendLine("");
+            stringBuilder.AppendLine("       #endregion");
+
+            #endregion
+
+            #region Maker
+
+            stringBuilder.AppendLine("\n        #region Maker");
+
+            stringBuilder.AppendLine($"");
+            stringBuilder.AppendLine($"        private {tabla} Maker(SqlDataReader dtReader)");
+            stringBuilder.AppendLine($"        {{");
+            stringBuilder.AppendLine($"            " +
+                                     $"{tabla} {Cadena.PriMin(tabla)} = new {tabla}();");
+
+            foreach (var row in campos)
+            {
+                switch (row.TipoDotNet)
+                {
+                    case "int":
+                        stringBuilder.AppendLine($"            {Cadena.PriMin(tabla)}.{row.Nombre} = dtReader.IsDBNull(dtReader.GetOrdinal(\"{row.Nombre}\")) ? 0 : dtReader.GetInt32(dtReader.GetOrdinal(\"{row.Nombre}\"));");
+                        break;
+
+                    case "decimal":
+                        stringBuilder.AppendLine($"            {Cadena.PriMin(tabla)}.{row.Nombre} = dtReader.IsDBNull(dtReader.GetOrdinal(\"{row.Nombre}\")) ? 0 : dtReader.GetDecimal(dtReader.GetOrdinal(\"{row.Nombre}\"));");
+                        break;
+
+                    case "bool":
+                        stringBuilder.AppendLine($"            {Cadena.PriMin(tabla)}.{row.Nombre} = !dtReader.IsDBNull(dtReader.GetOrdinal(\"{row.Nombre}\")) && dtReader.GetBoolean(dtReader.GetOrdinal(\"{row.Nombre}\"));");
+                        break;
+
+                    case "DateTime":
+                        stringBuilder.AppendLine($"            {Cadena.PriMin(tabla)}.{row.Nombre} = dtReader.IsDBNull(dtReader.GetOrdinal(\"{row.Nombre}\")) ? new DateTime(1900, 01, 01) : dtReader.GetDateTime(dtReader.GetOrdinal(\"{row.Nombre}\"));");
+                        break;
+
+                    default:
+                        stringBuilder.AppendLine($"            {Cadena.PriMin(tabla)}.{row.Nombre} = dtReader.IsDBNull(dtReader.GetOrdinal(\"{row.Nombre}\")) ? string.Empty : dtReader.GetString(dtReader.GetOrdinal(\"{row.Nombre}\"));");
+                        break;
+                }
+            }
+
+            stringBuilder.AppendLine($"            return {Cadena.PriMin(tabla)};");
+            stringBuilder.AppendLine($"        }}");
+
+            stringBuilder.AppendLine("");
+            stringBuilder.AppendLine("        #endregion");
+
+            #endregion
+
+            stringBuilder.AppendLine($"    }}");
+
             stringBuilder.AppendLine($"}}");
 
             return $"{stringBuilder}";

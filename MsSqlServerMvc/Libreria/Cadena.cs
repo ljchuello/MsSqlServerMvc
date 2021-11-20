@@ -20,6 +20,13 @@ namespace MsSqlServerMvc.Libreria
             }
         }
 
+        public static string PriMin(string cadena)
+        {
+            string uno = cadena.Substring(0, 1).ToLower();
+            cadena = cadena.Substring(1, cadena.Length - 1);
+            return $"{uno}{cadena}";
+        }
+
         public static string Aleatoria(int largo)
         {
             Random random = new Random();
