@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web.UI;
 using MsSqlServerMvc.Libreria;
+using Newtonsoft.Json;
 
 namespace MsSqlServerMvc
 {
@@ -116,6 +117,8 @@ namespace MsSqlServerMvc
 
                 // Generamos
                 List<Sql.Campos> campos = _sql.Table_Details(this, _sql, ddlTabla.SelectedValue);
+
+                string camposJson = JsonConvert.SerializeObject(campos, Formatting.Indented);
 
                 // Modelo
                 string modelo = new Modelo().Generar(ddlTabla.SelectedValue, campos);
