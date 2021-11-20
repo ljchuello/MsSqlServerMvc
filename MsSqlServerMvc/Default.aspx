@@ -47,6 +47,7 @@
             <div class="col s12">
                 <ul class="tabs">
                     <li class="tab"><a class="active" href="#tabPrincipal">Principal</a></li>
+                    <li class="tab"><a href="#tabTodoEnUno">Todo en uno</a></li>
                     <li class="tab"><a href="#tabModelo">Modelo</a></li>
                     <li class="tab"><a href="#tabControlador">Controlador</a></li>
                     <li class="tab"><a href="#tabGranular">Granular</a></li>
@@ -97,6 +98,19 @@
                                 </button>
                             </div>
 
+                        </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
+
+            <div id="tabTodoEnUno" class="col s12 padding5">
+                <asp:UpdatePanel runat="server">
+                    <ContentTemplate>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="txtTodoEnUno" runat="server" class="materialize-textarea"></textarea>
+                                <label for="<%=txtTodoEnUno.ClientID%>">Todo en uno</label>
+                            </div>
                         </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>

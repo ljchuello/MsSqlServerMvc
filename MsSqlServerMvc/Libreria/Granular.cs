@@ -89,7 +89,7 @@ namespace MsSqlServerMvc.Libreria
                                 break;
 
                             default:
-                                stringBuilder.AppendLine($"         stringBuilder.AppendLine($\"{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}, -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
+                                stringBuilder.AppendLine($"         stringBuilder.AppendLine($\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}', -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
                                 break;
                         }
                     }
@@ -117,7 +117,7 @@ namespace MsSqlServerMvc.Libreria
                                 break;
 
                             default:
-                                stringBuilder.AppendLine($"         stringBuilder.AppendLine($\"{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}} -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
+                                stringBuilder.AppendLine($"         stringBuilder.AppendLine($\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}' -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
                                 break;
                         }
                     }
