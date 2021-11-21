@@ -26,11 +26,6 @@ namespace MsSqlServerMvc
                     // Evitamos el doble click
                     UControl.EvitarDobleEnvioButton(this, btnConectar);
                     UControl.EvitarDobleEnvioButton(this, btnGenerar);
-
-                    // Sin perder tiempo
-                    btnConectar_OnServerClick(null, null);
-                    ddlTabla.SelectedValue = "Adm_Banco";
-                    btnGenerar_OnServerClick(null, null);
                 }
             }
             catch (Exception ex)

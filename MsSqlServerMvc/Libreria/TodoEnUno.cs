@@ -21,7 +21,11 @@ namespace MsSqlServerMvc.Libreria
             stringBuilder.AppendLine($"// {DateTime.Now:yyyy-MM-dd}");
             stringBuilder.AppendLine($"");
             stringBuilder.AppendLine($"using System;");
+            stringBuilder.AppendLine($"using System.Data;");
             stringBuilder.AppendLine($"using System.Data.SqlClient;");
+            stringBuilder.AppendLine($"using System.Text;");
+            stringBuilder.AppendLine($"using System.Threading.Tasks;");
+            stringBuilder.AppendLine($"using DPSOsV2.DataCloud.Tools;");
             stringBuilder.AppendLine($"");
             stringBuilder.AppendLine($"// ReSharper disable once CheckNamespace");
             stringBuilder.AppendLine($"namespace DataCloud");
@@ -79,9 +83,40 @@ namespace MsSqlServerMvc.Libreria
             #region Métodos
 
             stringBuilder.AppendLine("");
-            stringBuilder.AppendLine("       #region Methods");
+            stringBuilder.AppendLine("       #region Métodos");
             stringBuilder.AppendLine("");
-            stringBuilder.AppendLine("");
+
+            if (campos.Count(x => x.Nombre == "Id") > 0)
+            {
+                stringBuilder.AppendLine($"        public async Task<{tabla}> Select_Id_Async(string id)");
+                stringBuilder.AppendLine($"        {{");
+                stringBuilder.AppendLine($"            return await Task.Run(() =>");
+                stringBuilder.AppendLine($"            {{");
+                stringBuilder.AppendLine($"                {tabla} {tabla} = new {tabla}();");
+                stringBuilder.AppendLine($"                try");
+                stringBuilder.AppendLine($"                {{");
+                stringBuilder.AppendLine($"                    SqlCommand sqlCommand = new SqlCommand();");
+                stringBuilder.AppendLine($"                    sqlCommand.Connection = PoolConexion.Lectura();");
+                stringBuilder.AppendLine($"                    sqlCommand.CommandType = CommandType.Text;");
+                stringBuilder.AppendLine($"                    sqlCommand.CommandText = $\"{{_select}} FROM {tabla} WHERE Id = @Id;\";");
+                stringBuilder.AppendLine($"                    sqlCommand.Parameters.AddWithValue(\"@Id\", id);");
+                stringBuilder.AppendLine($"                    using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())");
+                stringBuilder.AppendLine($"                    {{");
+                stringBuilder.AppendLine($"                        while (sqlDataReader.Read())");
+                stringBuilder.AppendLine($"                        {{");
+                stringBuilder.AppendLine($"                            {tabla} = Maker(sqlDataReader);");
+                stringBuilder.AppendLine($"                        }}");
+                stringBuilder.AppendLine($"                    }}");
+                stringBuilder.AppendLine($"                    return {tabla};");
+                stringBuilder.AppendLine($"                }}");
+                stringBuilder.AppendLine($"                catch (Exception ex)");
+                stringBuilder.AppendLine($"                {{");
+                stringBuilder.AppendLine($"                    Console.WriteLine(ex);");
+                stringBuilder.AppendLine($"                    return {tabla};");
+                stringBuilder.AppendLine($"                }}");
+                stringBuilder.AppendLine($"            }});");
+                stringBuilder.AppendLine($"        }}");
+            }
             stringBuilder.AppendLine("");
             stringBuilder.AppendLine("       #endregion");
 
