@@ -65,61 +65,35 @@ namespace MsSqlServerMvc.Libreria
                     // Incrementamos
                     iterator = iterator + 1;
 
-                    if (list.Count != iterator)
+                    // Validamos
+                    if (row.Nulo)
                     {
-                        switch (row.TipoDotNet)
+                        if (iterator != list.Count)
                         {
-                            case "string":
-                                if (!row.Nulo)
-                                {
-                                    // Nulo
-                                    stringBuilder.AppendLine($"         stringBuilder.AppendLine($\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}', -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
-                                }
-                                else
-                                {
-                                    // No nulo
-                                    stringBuilder.AppendLine($"         stringBuilder.AppendLine(!Cadena.Vacia(Mo{tabla}.{row.Nombre})");
-                                    stringBuilder.AppendLine($"             ? $\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}', -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\"");
-                                    stringBuilder.AppendLine($"             : $\"NULL, -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
-                                }
-                                break;
-
-                            case "DateTime":
-                                stringBuilder.AppendLine($"         stringBuilder.AppendLine($\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}', -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
-                                break;
-
-                            default:
-                                stringBuilder.AppendLine($"         stringBuilder.AppendLine($\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}', -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
-                                break;
+                            // Si nulo - No ultimo
+                            stringBuilder.AppendLine($"         stringBuilder.AppendLine(!Cadena.Vacia(Mo{tabla}.{row.Nombre})");
+                            stringBuilder.AppendLine($"             ? $\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}', -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\"");
+                            stringBuilder.AppendLine($"             : $\"NULL, -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
+                        }
+                        else
+                        {
+                            // Si nulo - Si ultimo
+                            stringBuilder.AppendLine($"         stringBuilder.AppendLine($\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}', -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
                         }
                     }
                     else
                     {
-                        switch (row.TipoDotNet)
+                        if (iterator != list.Count)
                         {
-                            case "string":
-                                if (!row.Nulo)
-                                {
-                                    // Nulo
-                                    stringBuilder.AppendLine($"         stringBuilder.AppendLine($\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}' -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
-                                }
-                                else
-                                {
-                                    // No nulo
-                                    stringBuilder.AppendLine($"         stringBuilder.AppendLine(!Cadena.Vacia(Mo{tabla}.{row.Nombre})");
-                                    stringBuilder.AppendLine($"             ? $\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}' -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\"");
-                                    stringBuilder.AppendLine($"             : $\"NULL -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
-                                }
-                                break;
-
-                            case "DateTime":
-                                stringBuilder.AppendLine($"         stringBuilder.AppendLine($\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}' -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
-                                break;
-
-                            default:
-                                stringBuilder.AppendLine($"         stringBuilder.AppendLine($\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}' -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
-                                break;
+                            // No nulo - No ultimo
+                            stringBuilder.AppendLine($"         stringBuilder.AppendLine($\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}})', -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
                         }
+                        else
+                        {
+                            // No nulo - Si ultimo
+                            stringBuilder.AppendLine($"         stringBuilder.AppendLine($\"'{{Tools.Remplazar(Mo{tabla}.{row.Nombre})}}' -- {row.Nombre} | {row.TipoDotNet} | {row.TipoSql}\");");
+                        }
+                        
                     }
                 }
                 stringBuilder.AppendLine("          stringBuilder.AppendLine(\");\");");
