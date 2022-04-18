@@ -96,7 +96,7 @@ namespace MsSqlServerMvc.Libreria
                 stringBuilder.AppendLine($"                try");
                 stringBuilder.AppendLine($"                {{");
                 stringBuilder.AppendLine($"                    SqlCommand sqlCommand = new SqlCommand();");
-                stringBuilder.AppendLine($"                    sqlCommand.Connection = PoolConexion.Lectura();");
+                stringBuilder.AppendLine($"                    sqlCommand.Connection = Conexion.Lectura();");
                 stringBuilder.AppendLine($"                    sqlCommand.CommandType = CommandType.Text;");
                 stringBuilder.AppendLine($"                    sqlCommand.CommandText = $\"{{_select}} FROM {tabla} WHERE Id = @Id;\";");
                 stringBuilder.AppendLine($"                    sqlCommand.Parameters.AddWithValue(\"@Id\", id);");
@@ -124,7 +124,7 @@ namespace MsSqlServerMvc.Libreria
 
             #region Bloque
 
-            if (campos.First().Nombre.ToLower() == "id")
+            if (campos.First().Nombre.ToLower().Contains("id"))
             {
                 stringBuilder.AppendLine("");
                 stringBuilder.AppendLine("        #region Block's");
@@ -159,8 +159,8 @@ namespace MsSqlServerMvc.Libreria
                     ++iteracion;
 
                     stringBuilder.AppendLine(iteracion != campos.Count
-                        ? $"            stringBuilder.AppendLine($\"'{{PoolConexion.Remplazar({Cadena.PriMin(tabla)}.{row.Nombre})}}', -- {row.Nombre} | {row.TipoSql} | {row.TipoDotNet}\");"
-                        : $"            stringBuilder.AppendLine($\"'{{PoolConexion.Remplazar({Cadena.PriMin(tabla)}.{row.Nombre})}}'); -- {row.Nombre} | {row.TipoSql} | {row.TipoDotNet}\");");
+                        ? $"            stringBuilder.AppendLine($\"'{{Conexion.Remplazar({Cadena.PriMin(tabla)}.{row.Nombre})}}', -- {row.Nombre} | {row.TipoSql} | {row.TipoDotNet}\");"
+                        : $"            stringBuilder.AppendLine($\"'{{Conexion.Remplazar({Cadena.PriMin(tabla)}.{row.Nombre})}}'); -- {row.Nombre} | {row.TipoSql} | {row.TipoDotNet}\");");
                 }
 
                 stringBuilder.AppendLine($"        return stringBuilder.ToString();");
@@ -170,7 +170,7 @@ namespace MsSqlServerMvc.Libreria
 
                 #region Update Block
 
-                if (campos.Count(x => x.Nombre.ToLower() == "id") == 1)
+                if (campos.First().Nombre.ToLower().Contains("id"))
                 {
                     stringBuilder.AppendLine("");
                     stringBuilder.AppendLine($"        public string Update_Block({tabla} {Cadena.PriMin(tabla)})");
@@ -187,14 +187,14 @@ namespace MsSqlServerMvc.Libreria
                     {
                         iteracion = iteracion + 1;
                         stringBuilder.AppendLine(iteracion != listUpdate01.Count
-                            ? $"            stringBuilder.AppendLine($\"{row.Nombre} = '{{PoolConexion.Remplazar({Cadena.PriMin(tabla)}.{row.Nombre})}}', -- {row.Nombre} | {row.TipoSql} | {row.TipoDotNet}\");"
-                            : $"            stringBuilder.AppendLine($\"{row.Nombre} = '{{PoolConexion.Remplazar({Cadena.PriMin(tabla)}.{row.Nombre})}}' -- {row.Nombre} | {row.TipoSql} | {row.TipoDotNet}\");");
+                            ? $"            stringBuilder.AppendLine($\"{row.Nombre} = '{{Conexion.Remplazar({Cadena.PriMin(tabla)}.{row.Nombre})}}', -- {row.Nombre} | {row.TipoSql} | {row.TipoDotNet}\");"
+                            : $"            stringBuilder.AppendLine($\"{row.Nombre} = '{{Conexion.Remplazar({Cadena.PriMin(tabla)}.{row.Nombre})}}' -- {row.Nombre} | {row.TipoSql} | {row.TipoDotNet}\");");
                     }
 
                     // Where
                     stringBuilder.AppendLine($"            stringBuilder.AppendLine(\"WHERE\");");
-                    var rowUpdate = campos.FirstOrDefault(x => x.Nombre.ToLower() == "id") ?? new Sql.Campos();
-                    stringBuilder.AppendLine($"            stringBuilder.AppendLine($\"{rowUpdate.Nombre} = '{{PoolConexion.Remplazar({Cadena.PriMin(tabla)}.{rowUpdate.Nombre})}}'; -- {rowUpdate.Nombre} | {rowUpdate.TipoSql} | {rowUpdate.TipoDotNet}\");");
+                    var rowUpdate = campos.FirstOrDefault(x => x.Nombre.ToLower().Contains("id")) ?? new Sql.Campos();
+                    stringBuilder.AppendLine($"            stringBuilder.AppendLine($\"{rowUpdate.Nombre} = '{{Conexion.Remplazar({Cadena.PriMin(tabla)}.{rowUpdate.Nombre})}}'; -- {rowUpdate.Nombre} | {rowUpdate.TipoSql} | {rowUpdate.TipoDotNet}\");");
                     stringBuilder.AppendLine($"        return stringBuilder.ToString();");
                     stringBuilder.AppendLine($"        }}");
                 }
@@ -203,7 +203,7 @@ namespace MsSqlServerMvc.Libreria
 
                 #region Delete Block
 
-                if (campos.Count(x => x.Nombre.ToLower() == "id") == 1)
+                if (campos.First().Nombre.ToLower().Contains("id"))
                 {
                     stringBuilder.AppendLine("");
                     stringBuilder.AppendLine($"        public string Delete_Block({tabla} {Cadena.PriMin(tabla)})");
@@ -212,8 +212,8 @@ namespace MsSqlServerMvc.Libreria
                     stringBuilder.AppendLine($"            stringBuilder.AppendLine(\"\");");
                     stringBuilder.AppendLine($"            stringBuilder.AppendLine(\"--  Delete {tabla}\");");
                     stringBuilder.AppendLine($"            stringBuilder.AppendLine(\"DELETE FROM {tabla} WHERE\");");
-                    var rowDelete = campos.FirstOrDefault(x => x.Nombre.ToLower() == "id") ?? new Sql.Campos();
-                    stringBuilder.AppendLine($"            stringBuilder.AppendLine($\"{rowDelete.Nombre} = '{{PoolConexion.Remplazar({Cadena.PriMin(tabla)}.{rowDelete.Nombre})}}'; -- {rowDelete.Nombre} | {rowDelete.TipoSql} | {rowDelete.TipoDotNet}\");");
+                    var rowDelete = campos.FirstOrDefault(x => x.Nombre.ToLower().Contains("id")) ?? new Sql.Campos();
+                    stringBuilder.AppendLine($"            stringBuilder.AppendLine($\"{rowDelete.Nombre} = '{{Conexion.Remplazar({Cadena.PriMin(tabla)}.{rowDelete.Nombre})}}'; -- {rowDelete.Nombre} | {rowDelete.TipoSql} | {rowDelete.TipoDotNet}\");");
                     stringBuilder.AppendLine($"        return stringBuilder.ToString();");
                     stringBuilder.AppendLine($"        }}");
                 }

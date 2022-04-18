@@ -17,26 +17,27 @@ namespace MsSqlServerMvc.Libreria
                 #region Campos
                 foreach (var row in campos)
                 {
+                    stringBuilder.AppendLine($"[JsonProperty(\"{Cadena.PriMin(row.Nombre)}\")]");
                     switch (row.TipoDotNet)
                     {
                         case "int":
-                            stringBuilder.AppendLine($"public int {row.Nombre} {{ set; get; }} = 0;");
+                            stringBuilder.AppendLine($"public int {row.Nombre} {{ set; get; }} = 0;\n");
                             break;
 
                         case "decimal":
-                            stringBuilder.AppendLine($"public decimal {row.Nombre} {{ set; get; }} = 0;");
+                            stringBuilder.AppendLine($"public decimal {row.Nombre} {{ set; get; }} = 0;\n");
                             break;
 
                         case "bool":
-                            stringBuilder.AppendLine($"public bool {row.Nombre} {{ set; get; }} = false;");
+                            stringBuilder.AppendLine($"public bool {row.Nombre} {{ set; get; }} = false;\n");
                             break;
 
                         case "DateTime":
-                            stringBuilder.AppendLine($"public DateTime {row.Nombre} {{ set; get; }} = new DateTime(1900, 01, 01);");
+                            stringBuilder.AppendLine($"public DateTime {row.Nombre} {{ set; get; }} = new DateTime(1900, 01, 01);\n");
                             break;
 
                         default:
-                            stringBuilder.AppendLine($"public string {row.Nombre} {{ set; get; }} = string.Empty;");
+                            stringBuilder.AppendLine($"public string {row.Nombre} {{ set; get; }} = string.Empty;\n");
                             break;
                     }
                 }

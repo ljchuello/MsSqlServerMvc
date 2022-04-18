@@ -112,7 +112,6 @@ namespace MsSqlServerMvc
 
                 // Generamos
                 List<Sql.Campos> campos = _sql.Table_Details(this, _sql, ddlTabla.SelectedValue);
-
                 string camposJson = JsonConvert.SerializeObject(campos, Formatting.Indented);
 
                 // Modelo
