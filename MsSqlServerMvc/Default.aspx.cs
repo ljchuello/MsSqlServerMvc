@@ -130,6 +130,11 @@ namespace MsSqlServerMvc
                 txtGranular.InnerText = granular;
                 Javascript.ResizeTxt(this, txtGranular.ClientID);
 
+                // Granular
+                string response = new Response().Generar(this, ddlTabla.SelectedValue, campos);
+                txtResponse.InnerText = response;
+                Javascript.ResizeTxt(this, txtResponse.ClientID);
+
                 // TodoEnUno
                 string todoEnUno = new TodoEnUno().Generar(this, campos, ddlTabla.SelectedValue);
                 txtTodoEnUno.InnerText = todoEnUno;

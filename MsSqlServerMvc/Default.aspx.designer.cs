@@ -96,6 +96,15 @@ namespace MsSqlServerMvc
         protected global::System.Web.UI.HtmlControls.HtmlTextArea txtTodoEnUno;
 
         /// <summary>
+        /// Control txtResponse.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTextArea txtResponse;
+
+        /// <summary>
         /// Control txtModelo.
         /// </summary>
         /// <remarks>
