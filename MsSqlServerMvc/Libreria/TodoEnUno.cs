@@ -20,12 +20,7 @@ namespace MsSqlServerMvc.Libreria
             stringBuilder.AppendLine($"// Leonardo Chuello");
             stringBuilder.AppendLine($"// {DateTime.Now:yyyy-MM-dd}");
             stringBuilder.AppendLine($"");
-            stringBuilder.AppendLine($"using System;");
-            stringBuilder.AppendLine($"using System.Data;");
             stringBuilder.AppendLine($"using System.Data.SqlClient;");
-            stringBuilder.AppendLine($"using System.Text;");
-            stringBuilder.AppendLine($"using System.Threading.Tasks;");
-            stringBuilder.AppendLine($"using DPSOsV2.DataCloud.Tools;");
             stringBuilder.AppendLine($"");
             stringBuilder.AppendLine($"// ReSharper disable once CheckNamespace");
             stringBuilder.AppendLine($"namespace DataCloud");
